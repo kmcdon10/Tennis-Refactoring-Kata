@@ -10,7 +10,7 @@ TennisGame.prototype.wonPoint = function(winner) {
     this.player2Score += 1;
 };
 
-var scoreBoardMap = {
+var scoreBoard = {
   0: "Love",
   1: "Fifteen",
   2: "Thirty",
@@ -23,16 +23,15 @@ TennisGame.prototype.getScore = function() {
 
   if (player1Score === player2Score) {
     if (player1Score > 2)return "Deuce";
-    return scoreBoardMap[player1Score] + "-All";
-  } else if (player1Score >= 4 || player2Score >= 4) {
-    var difference = player1Score - player2Score;
-    if (Math.abs(difference) === 1) {
-      return player1Score > player2Score ? "Advantage player1" : "Advantage player2";
-    }
-    return player1Score > player2Score ? "Win for player1" : "Win for player2";
-  } else {
-    return scoreBoardMap[player1Score] + "-" + scoreBoardMap[player2Score];
+    return scoreBoard[player1Score] + "-All";
   }
+  else if (player1Score > 3 || player2Score > 3) {
+    var leadPlayer = player1Score > player2Score ? "player1" : "player2";
+    var absoluteDifference = Math.abs(player1Score - player2Score);
+
+    return absoluteDifference === 1 ? "Advantage " + leadPlayer : "Win for " + leadPlayer;
+  }
+  return scoreBoard[player1Score] + "-" + scoreBoard[player2Score];
 };
 
 module.exports = TennisGame;
