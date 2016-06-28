@@ -14,7 +14,6 @@ TennisGame.prototype.getScore = function() {
   if (isCloseScore(player1, player2)) return score[player1] + "-" + score[player2];
   if (isGamePoint(player1, player2)) return "Advantage " + leader;
   else return "Win for " + leader;
-
 };
 
 TennisGame.prototype.wonPoint = function(winner) {
@@ -28,6 +27,10 @@ var isDeuce = function (player1, player2) {
     return player1 === player2 && player1 > 2;
 };
 
+var isTied = function(player1, player2) {
+  return player1 === player2;
+};
+
 var isCloseScore = function(player1, player2) {
   return player1 < 4 && player2 < 4 && player1 + player2 < 6;
 };
@@ -35,10 +38,6 @@ var isCloseScore = function(player1, player2) {
 var isGamePoint = function(player1, player2) {
   var difference = Math.abs(player1 - player2);
   return difference <= 1;
-};
-
-var isTied = function(player1, player2) {
-  return player1 === player2;
 };
 
 module.exports = TennisGame;
