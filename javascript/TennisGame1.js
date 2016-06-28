@@ -1,13 +1,13 @@
 var TennisGame = function(player1, player2) {
-  this.player1Score = 0;
-  this.player2Score = 0;
+  this.player1 = 0;
+  this.player2 = 0;
 };
 
 TennisGame.prototype.wonPoint = function(winner) {
   if (winner === "player1")
-    this.player1Score += 1;
+    this.player1 += 1;
   else
-    this.player2Score += 1;
+    this.player2 += 1;
 };
 
 var scoreBoard = {
@@ -18,8 +18,8 @@ var scoreBoard = {
 };
 
 TennisGame.prototype.getScore = function() {
-  var player1Score = this.player1Score;
-  var player2Score = this.player2Score;
+  var player1Score = this.player1;
+  var player2Score = this.player2;
 
   if (player1Score === player2Score) {
     if (player1Score > 2)return "Deuce";

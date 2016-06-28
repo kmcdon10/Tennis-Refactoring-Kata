@@ -1,33 +1,44 @@
-var TennisGame3 = function(p1N, p2N) {
-    this.p2 = 0;
-    this.p1 = 0;
-
-    this.p1N = p1N;
-    this.p2N = p2N;
+var TennisGame3 = function(player1Name, player2Name) {
+    this.player1 = 0;
+    this.player2 = 0;
 };
 
 TennisGame3.prototype.getScore = function() {
-    var s;
-    if ((this.p1 < 4 && this.p2 < 4) && (this.p1 + this.p2 < 6)) {
-        var p = ["Love", "Fifteen", "Thirty", "Forty"];
-        s = p[this.p1];
-        return (this.p1 == this.p2) ? s + "-All" : s + "-" + p[this.p2];
-    } else {
-        if (this.p1 == this.p2)
-            return "Deuce";
-        s = this.p1 > this.p2 ? this.p1N : this.p2N;
-        return ((this.p1 - this.p2) * (this.p1 - this.p2) == 1) ? "Advantage " + s : "Win for " + s;
-    }
+  var player1 = this.player1;
+  var player2 = this.player2;
+  var leader = player1 > player2 ? "player1" : "player2";
+  var score = ["Love", "Fifteen", "Thirty", "Forty"];
+
+  if (isDeuce(player1, player2)) return "Deuce";
+  if (isTied(player1, player2)) return score[player1] + "-All";
+  if (isCloseScore(player1, player2)) return score[player1] + "-" + score[player2];
+  if (isGamePoint(player1, player2)) return "Advantage " + leader;
+  else return "Win for " + leader;
+
 };
 
-TennisGame3.prototype.wonPoint = function(playerName) {
-    if (playerName == "player1")
-        this.p1 += 1;
+TennisGame3.prototype.wonPoint = function(winner) {
+    if (winner == "player1")
+      this.player1 += 1;
     else
-        this.p2 += 1;
-
+      this.player2 += 1;
 };
 
-if (typeof window === "undefined") {
-    module.exports = TennisGame3;
-}
+var isDeuce = function (player1, player2) {
+    return player1 === player2 && player1 > 2;
+};
+
+var isCloseScore = function(player1, player2) {
+  return player1 < 4 && player2 < 4 && player1 + player2 < 6;
+};
+
+var isGamePoint = function(player1, player2) {
+  var difference = Math.abs(player1 - player2);
+  return difference <= 1;
+};
+
+var isTied = function(player1, player2) {
+  return player1 === player2;
+};
+
+module.exports = TennisGame3;
