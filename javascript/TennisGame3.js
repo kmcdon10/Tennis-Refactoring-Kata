@@ -1,9 +1,9 @@
-var TennisGame3 = function(player1Name, player2Name) {
+var TennisGame = function(player1Name, player2Name) {
     this.player1 = 0;
     this.player2 = 0;
 };
 
-TennisGame3.prototype.getScore = function() {
+TennisGame.prototype.getScore = function() {
   var player1 = this.player1;
   var player2 = this.player2;
   var leader = player1 > player2 ? "player1" : "player2";
@@ -17,7 +17,7 @@ TennisGame3.prototype.getScore = function() {
 
 };
 
-TennisGame3.prototype.wonPoint = function(winner) {
+TennisGame.prototype.wonPoint = function(winner) {
     if (winner == "player1")
       this.player1 += 1;
     else
@@ -41,4 +41,4 @@ var isTied = function(player1, player2) {
   return player1 === player2;
 };
 
-module.exports = TennisGame3;
+module.exports = TennisGame;
